@@ -47,7 +47,7 @@ public class CDC {
             sck.getInputStream().read(data,0,data.length);
             long t2 = System.currentTimeMillis();
             player.Pause();
-            long d_sck_t = Converter.BytesToLong(data);
+            // long d_sck_t = Converter.BytesToLong(data);
             System.out.println(t2-t1);
             avgBuff[i] = t2 - t1;
             player.Quit();
@@ -79,7 +79,7 @@ public class CDC {
             long t1 = System.currentTimeMillis();
             sck.getOutputStream().write("pause".getBytes());
             byte[] data = new byte[256];
-            long d_sck_t = sck.getInputStream().read(data,0,data.length);
+            // long d_sck_t = sck.getInputStream().read(data,0,data.length);
             long t2 = System.currentTimeMillis();
             avgBuff[i] = t2-t1;
             System.out.println(t2-t1);
