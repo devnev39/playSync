@@ -53,6 +53,7 @@ public class CDC {
             player.Quit();
         }
         CDC.playDelay = Converter.getAverage(avgBuff) / 2;
+        System.out.println("Play Delay : "+CDC.playDelay);
     }
 
     private static void playDelayClient(Socket sck) throws IOException, UnsupportedAudioFileException, LineUnavailableException{
@@ -85,6 +86,7 @@ public class CDC {
             System.out.println(t2-t1);
         }
         CDC.pauseDelay = Converter.getAverage(avgBuff) / 2;
+        System.out.println("Pause Delay : "+CDC.pauseDelay);
     }
 
     private static void pauseDelayClient(Socket sck) throws IOException, UnsupportedAudioFileException, LineUnavailableException{
