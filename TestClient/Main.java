@@ -25,6 +25,7 @@ public class Main {
     }
 
     public static void performDelayCalculation() throws Exception{
+        CDC.setAveragingConstant(10);
         CDC.CalculateDelayClient(sck);
     }
 

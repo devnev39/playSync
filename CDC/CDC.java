@@ -40,9 +40,9 @@ public class CDC {
     private static void playDelayServer(Socket sck) throws UnsupportedAudioFileException, IOException, LineUnavailableException{
         long[] avgBuff = new long[avgConstant];
         for(int i=0;i<avgConstant;i++){
+            sck.getOutputStream().write("play".getBytes());
             player.Play();
             long t1 = System.currentTimeMillis();
-            sck.getOutputStream().write("play".getBytes());
             byte[] data = new byte[256];
             sck.getInputStream().read(data,0,data.length);
             long t2 = System.currentTimeMillis();
