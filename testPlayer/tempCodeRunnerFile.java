@@ -1,1 +1,0 @@
- clip.loop(LOOP_CONTINUOUSLY);
