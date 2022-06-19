@@ -14,4 +14,12 @@ public class Converter {
         buffer.flip();
         return buffer.getLong();
     }
+
+    public static int getAverage(long[] diff){
+        long add = 0L;
+        for (long l : diff) {
+            add += l;
+        }
+        return (int)add/diff.length;
+    }
 }
