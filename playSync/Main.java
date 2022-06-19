@@ -15,13 +15,13 @@ public class Main{
     static Socket acc;
     public static void main(String[] args) throws Exception {
         // // StartServer(8888);
-        displayPlayer();
-        // startServer(8888);
-        // // startAccept();
-        // CDC.setAveragingConstant(10);
-        // CDC.CalculateDelayServer(acc);
-        // System.out.println(CDC.playDelay());
-        // System.out.println(CDC.pauseDelay());
+        // displayPlayer();
+        startServer(8888);
+        // startAccept();
+        CDC.setAveragingConstant(10);
+        CDC.CalculateDelayServer(acc);
+        System.out.println(CDC.playDelay());
+        System.out.println(CDC.pauseDelay());
     }
 
     public static void displayPlayer() throws Exception{

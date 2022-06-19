@@ -25,12 +25,14 @@ public class CDC {
     }
 
     public static void CalculateDelayServer(Socket connected) throws Exception{
+        setPlayer();
         playDelayServer(connected);
         pauseDelayServer(connected);
         isCalculated = true;
     }
 
     public static void CalculateDelayClient(Socket connected) throws Exception{
+        setPlayer();
         playDelayClient(connected);
         pauseDelayClient(connected);
     }
