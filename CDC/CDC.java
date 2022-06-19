@@ -48,6 +48,7 @@ public class CDC {
             long t2 = System.currentTimeMillis();
             player.Pause();
             long d_sck_t = Converter.BytesToLong(data);
+            System.out.println(t2-t1);
             avgBuff[i] = t2 - t1;
             player.Quit();
         }
@@ -64,6 +65,7 @@ public class CDC {
             long t2 = System.currentTimeMillis();
             sck.getOutputStream().write(Converter.LongToBytes(t2-t1));
             player.Pause();
+            System.out.println(t2-t1);
         }
     }
 
@@ -80,6 +82,7 @@ public class CDC {
             long d_sck_t = sck.getInputStream().read(data,0,data.length);
             long t2 = System.currentTimeMillis();
             avgBuff[i] = t2-t1;
+            System.out.println(t2-t1);
         }
         CDC.pauseDelay = Converter.getAverage(avgBuff) / 2;
     }
@@ -94,6 +97,7 @@ public class CDC {
             player.Pause();
             long t2 = System.currentTimeMillis();
             sck.getOutputStream().write(Converter.LongToBytes(t2-t1));
+            System.out.println(t2-t1);
         }
     }
 
