@@ -20,8 +20,8 @@ public class Main{
         // startAccept();
         CDC.setAveragingConstant(10);
         CDC.CalculateDelayServer(acc);
-        System.out.println(CDC.playDelay());
-        System.out.println(CDC.pauseDelay());
+        System.out.println("Play Delay : "+CDC.playDelay());
+        System.out.println("Pause Delay : "+CDC.pauseDelay());
     }
 
     public static void displayPlayer() throws Exception{
