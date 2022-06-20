@@ -13,6 +13,7 @@ public class Main{
 
     static ServerSocket socket;
     static Socket acc;
+    static boolean beamConnection = false;
     public static void main(String[] args) throws Exception {
         // // StartServer(8888);
         // displayPlayer();
@@ -22,6 +23,8 @@ public class Main{
         CDC.CalculateDelayServer(acc);
         System.out.println("Play Delay : "+CDC.playDelay());
         System.out.println("Pause Delay : "+CDC.pauseDelay());
+        beamConnection = true;
+        displayPlayer();
     }
 
     public static void displayPlayer() throws Exception{
@@ -32,9 +35,17 @@ public class Main{
             int choice = sc.nextInt();
             switch(choice){
                 case 1:
+                    if(beamConnection){
+                        acc.getOutputStream().write("play".getBytes());
+                        Thread.sleep(CDC.playDelay());
+                    }
                     player.Play();
                     break;
                 case 2:
+                    if(beamConnection){
+                        acc.getOutputStream().write("pause".getBytes());
+                        Thread.sleep(CDC.pauseDelay());
+                    }
                     player.Pause();
                     break;
                 case 3:
