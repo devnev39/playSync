@@ -32,23 +32,24 @@ public class Main {
     public static void listenToCommand() throws IOException, UnsupportedAudioFileException, LineUnavailableException{
         byte[] data = new byte[256];
         sck.getInputStream().read(data,0,data.length);
-        String cmd = new String(data);
-        switch (cmd) {
-            case "play":
-                player.Play();
-                break;
-            
-            case "pause":
-                player.Pause();
-                break;
-
-            default:
-                return;
+        String cmd = new String(data).replace("\0", "");
+        System.out.println(cmd);
+        if(cmd.equals("play")){
+            player.Play();
         }
+        if(cmd.equals("pause")){
+            player.Pause();
+        }
+    }
+
+    public static void setPlayer() throws Exception{
+        player = new Player("test.wav");
     }
     public static void main(String[] args) throws Exception{
         Connect(8888);
         performDelayCalculation();
+        System.out.println("Calibration completed !");
+        setPlayer();
         while(true){
             listenToCommand();
         }

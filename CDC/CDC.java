@@ -28,6 +28,7 @@ public class CDC {
         setPlayer();
         playDelayServer(connected);
         pauseDelayServer(connected);
+        player.Pause();
         isCalculated = true;
     }
 
@@ -35,6 +36,7 @@ public class CDC {
         setPlayer();
         playDelayClient(connected);
         pauseDelayClient(connected);
+        player.Pause();
     }
 
     private static void playDelayServer(Socket sck) throws UnsupportedAudioFileException, IOException, LineUnavailableException{
@@ -52,7 +54,7 @@ public class CDC {
             avgBuff[i] = t2 - t1;
             player.Quit();
         }
-        CDC.playDelay = Converter.getAverage(avgBuff) / 2;
+        CDC.playDelay = Converter.getAverage(avgBuff);
         System.out.println("Play Delay : "+CDC.playDelay);
     }
 
@@ -85,7 +87,7 @@ public class CDC {
             avgBuff[i] = t2-t1;
             System.out.println(t2-t1);
         }
-        CDC.pauseDelay = Converter.getAverage(avgBuff) / 2;
+        CDC.pauseDelay = Converter.getAverage(avgBuff);
         System.out.println("Pause Delay : "+CDC.pauseDelay);
     }
 
