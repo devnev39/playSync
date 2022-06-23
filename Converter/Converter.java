@@ -1,4 +1,5 @@
 package Converter;
+import java.lang.reflect.Array;
 import java.nio.ByteBuffer;
 
 public class Converter {
@@ -21,5 +22,13 @@ public class Converter {
             add += l;
         }
         return (int)add/diff.length;
+    }
+    
+    public static String[] pop(String[] arr){
+        String[] newArr = new String[arr.length-1];
+        for(int i=0;i<arr.length-1;i++){
+            newArr[i] = arr[i];
+        }
+        return newArr;
     }
 }

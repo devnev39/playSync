@@ -1,6 +1,7 @@
 package TestClient;
 
 import java.io.IOException;
+import java.net.ConnectException;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Scanner;
@@ -9,7 +10,7 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 import CDC.CDC;
-import Converter.Converter;
+import Connector.Connector;
 import testPlayer.Player;
 
 public class Main {
@@ -18,10 +19,7 @@ public class Main {
     static Player player;
 
     public static void Connect(int port) throws UnknownHostException, IOException{
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Enter Ip : ");
-        String ip = sc.nextLine();
-        sck = new Socket(ip,port);
+        sck = Connector.getReachableSocket(port);
     }
 
     public static void performDelayCalculation() throws Exception{
