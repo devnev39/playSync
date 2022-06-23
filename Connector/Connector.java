@@ -5,6 +5,7 @@ import java.net.InetSocketAddress;
 import java.net.InterfaceAddress;
 import java.net.NetworkInterface;
 import java.net.Socket;
+import java.net.SocketAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.Enumeration;
@@ -35,8 +36,9 @@ public class Connector {
             String IP = rawIp+"."+i;
             try {
                 Socket sck = new Socket();
-                // sck.setSoTimeout(3);
-                sck.connect(new InetSocketAddress(IP, port), 5);
+                SocketAddress addr = new InetSocketAddress(IP, port);
+                // sck.bind(addr);
+                sck.connect(addr, 5);
                 System.out.println("Server Reached : "+IP);
                 return sck;
             } catch (IOException e) {
