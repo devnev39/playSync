@@ -2,7 +2,6 @@ package TestClient;
 
 import java.io.IOException;
 import java.net.Socket;
-import java.net.UnknownHostException;
 
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
@@ -16,7 +15,7 @@ public class Main {
     static Socket sck;
     static Player player;
 
-    public static void Connect(int port) throws UnknownHostException, IOException{
+    public static void Connect(int port) throws Exception{
         sck = Connector.getReachableSocket(port);
     }
 
@@ -41,13 +40,18 @@ public class Main {
     public static void setPlayer() throws Exception{
         player = new Player("test.wav");
     }
-    public static void main(String[] args) throws Exception{
-        Connect(8888);
-        performDelayCalculation();
-        System.out.println("Calibration completed !");
-        setPlayer();
-        while(true){
-            listenToCommand();
+    public static void main(String[] args){
+        try {
+            Connect(8888);
+            performDelayCalculation();
+            System.out.println("Calibration completed !");
+            setPlayer();
+            while(true){
+                listenToCommand();
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }
 }

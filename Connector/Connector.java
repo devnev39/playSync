@@ -29,8 +29,12 @@ public class Connector {
         return "0.0.0.0";
     }
 
-    public static Socket getReachableSocket(int port) throws UnknownHostException{
-        String[] split = getLocalIp().split("\\.");
+    public static Socket getReachableSocket(int port) throws Exception{
+        String ip = getLocalIp();
+        if(ip.equals("0.0.0.0")){
+            throw new Exception("Local IP cannot be detected !");
+        }
+        String[] split = ip.split("\\.");
         String rawIp = String.join(".", Converter.pop(split));
         for(int i=1;i<255;i++){
             String IP = rawIp+"."+i;
@@ -45,7 +49,6 @@ public class Connector {
                 System.out.print("Unreachable : "+IP+"\r");
             }
         }
-        System.out.println("No server found in listening mode on "+port+" !");
-        return null;
+        throw new Exception("No server found in listening mode on "+port+" !");
     }
 }
