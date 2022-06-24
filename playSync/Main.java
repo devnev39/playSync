@@ -36,14 +36,14 @@ public class Main{
             switch(choice){
                 case 1:
                     if(beamConnection){
-                        acc.getOutputStream().write("play".getBytes());
+                        acc.getOutputStream().write(Converter.IntToBytes(1));
                         Thread.sleep(CDC.playDelay());
                     }
                     player.Play();
                     break;
                 case 2:
                     if(beamConnection){
-                        acc.getOutputStream().write("pause".getBytes());
+                        acc.getOutputStream().write(Converter.IntToBytes(2));
                         Thread.sleep(CDC.pauseDelay());
                     }
                     player.Pause();

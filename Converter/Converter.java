@@ -15,6 +15,19 @@ public class Converter {
         return buffer.getLong();
     }
 
+    public static int BytesToInt(byte[] buff){
+        ByteBuffer buffer = ByteBuffer.allocate(Integer.BYTES);
+        buffer.put(buff);
+        buffer.flip();
+        return buffer.getInt();
+    }
+
+    public static byte[] IntToBytes(int i){
+        ByteBuffer buff = ByteBuffer.allocate(Integer.BYTES);
+        buff.putInt(i);
+        return buff.array();
+    }
+
     public static int getAverage(long[] diff){
         long add = 0L;
         for (long l : diff) {

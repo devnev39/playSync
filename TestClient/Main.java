@@ -8,6 +8,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 import CDC.CDC;
 import Connector.Connector;
+import Converter.Converter;
 import testPlayer.Player;
 
 public class Main {
@@ -25,14 +26,15 @@ public class Main {
     }
 
     public static void listenToCommand() throws IOException, UnsupportedAudioFileException, LineUnavailableException{
-        byte[] data = new byte[256];
+        byte[] data = new byte[Integer.BYTES];
         sck.getInputStream().read(data,0,data.length);
-        String cmd = new String(data).replace("\0", "");
-        System.out.println(cmd);
-        if(cmd.equals("play")){
+        int cmd = Converter.BytesToInt(data);
+        if(cmd == 1){
+            System.out.println("play");
             player.Play();
         }
-        if(cmd.equals("pause")){
+        if(cmd == 2){
+            System.out.println("pause");
             player.Pause();
         }
     }
