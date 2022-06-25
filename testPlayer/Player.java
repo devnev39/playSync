@@ -19,6 +19,7 @@ public class Player {
     private Clip clip;
     private String status;
     private long frame;
+    private long lastCommandSystemRunTime;
 
     public Player(String filePath) throws Exception{
         if(Files.exists(Path.of(filePath))){
@@ -36,6 +37,7 @@ public class Player {
     }
 
     public void Play() throws UnsupportedAudioFileException, IOException, LineUnavailableException{
+        long t1 = System.currentTimeMillis();
         if(this.status.equals("playing")){
             System.out.println("Already playing !");
             return;
@@ -53,9 +55,12 @@ public class Player {
         clip.loop(LOOP_CONTINUOUSLY);
         clip.start();
         status = "playing";
+        long t2 = System.currentTimeMillis();
+        this.lastCommandSystemRunTime = t2-t1;
     }
 
     public void Pause(){
+        long t1 = System.currentTimeMillis();
         if(this.status.equals("paused")){
             System.out.println("Already pasued !");
             return;
@@ -63,6 +68,8 @@ public class Player {
         frame = this.clip.getMicrosecondPosition();
         clip.stop();
         status = "paused";
+        long t2 = System.currentTimeMillis();
+        this.lastCommandSystemRunTime = t2-t1;
     }
 
     public void Seek() throws UnsupportedAudioFileException, IOException, LineUnavailableException{
@@ -96,5 +103,9 @@ public class Player {
     public String toString(){
         String[] name = this.filePath.split(File.pathSeparator);
         return "File : "+name[name.length-1]+"\nStatus : "+this.status;
+    }
+
+    public long lastCommandRunTime() {
+        return lastCommandSystemRunTime;
     }
 }

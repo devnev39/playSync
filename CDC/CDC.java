@@ -42,10 +42,10 @@ public class CDC {
     private static void playDelayServer(Socket sck) throws UnsupportedAudioFileException, IOException, LineUnavailableException{
         long[] avgBuff = new long[avgConstant];
         for(int i=0;i<avgConstant;i++){
-            sck.getOutputStream().write("play".getBytes());
+            sck.getOutputStream().write(Converter.IntToBytes(1));
             player.Play();
             long t1 = System.currentTimeMillis();
-            byte[] data = new byte[256];
+            byte[] data = new byte[Long.BYTES];
             sck.getInputStream().read(data,0,data.length);
             long t2 = System.currentTimeMillis();
             player.Pause();
@@ -60,7 +60,7 @@ public class CDC {
 
     private static void playDelayClient(Socket sck) throws IOException, UnsupportedAudioFileException, LineUnavailableException{
         for(int i=0;i<avgConstant;i++){
-            byte[] data = new byte[256];
+            byte[] data = new byte[Integer.BYTES];
             sck.getInputStream().read(data,0,data.length);
             long t1 = System.currentTimeMillis();
             // String cmd = new String(data);
@@ -75,14 +75,14 @@ public class CDC {
     private static void pauseDelayServer(Socket sck) throws UnsupportedAudioFileException, IOException, LineUnavailableException, InterruptedException{
         long[] avgBuff = new long[avgConstant];
         for(int i=0;i<avgConstant;i++){
-            sck.getOutputStream().write("play".getBytes());
+            sck.getOutputStream().write(Converter.IntToBytes(1));
             Thread.sleep(playDelay);
             player.Play();
             player.Pause();
             long t1 = System.currentTimeMillis();
-            sck.getOutputStream().write("pause".getBytes());
-            byte[] data = new byte[256];
-            // long d_sck_t = sck.getInputStream().read(data,0,data.length);
+            sck.getOutputStream().write(Converter.IntToBytes(2));
+            byte[] data = new byte[Long.BYTES];
+            sck.getInputStream().read(data,0,data.length);
             long t2 = System.currentTimeMillis();
             avgBuff[i] = t2-t1;
             System.out.println(t2-t1);
@@ -93,7 +93,7 @@ public class CDC {
 
     private static void pauseDelayClient(Socket sck) throws IOException, UnsupportedAudioFileException, LineUnavailableException{
         for(int i=0;i<avgConstant;i++){
-            byte[] data = new byte[256];
+            byte[] data = new byte[Integer.BYTES];
             sck.getInputStream().read(data,0,data.length);
             player.Play();
             sck.getInputStream().read(data,0,data.length);

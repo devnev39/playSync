@@ -14,17 +14,19 @@ public class Main{
     static ServerSocket socket;
     static Socket acc;
     static boolean beamConnection = false;
+    static boolean showCommandDelay = false;
     public static void main(String[] args) throws Exception {
         // // StartServer(8888);
-        // displayPlayer();
-        startServer(8888);
-        // startAccept();
-        CDC.setAveragingConstant(10);
-        CDC.CalculateDelayServer(acc);
-        System.out.println("Play Delay : "+CDC.playDelay());
-        System.out.println("Pause Delay : "+CDC.pauseDelay());
-        beamConnection = true;
+        showCommandDelay = true;
         displayPlayer();
+        // startServer(8888);
+        // // startAccept();
+        // CDC.setAveragingConstant(10);
+        // CDC.CalculateDelayServer(acc);
+        // System.out.println("Play Delay : "+CDC.playDelay());
+        // System.out.println("Pause Delay : "+CDC.pauseDelay());
+        // beamConnection = true;
+        // displayPlayer();
     }
 
     public static void displayPlayer() throws Exception{
@@ -40,6 +42,9 @@ public class Main{
                         Thread.sleep(CDC.playDelay());
                     }
                     player.Play();
+                    if(showCommandDelay){
+                        System.out.println(player.lastCommandRunTime());
+                    }
                     break;
                 case 2:
                     if(beamConnection){
@@ -47,6 +52,9 @@ public class Main{
                         Thread.sleep(CDC.pauseDelay());
                     }
                     player.Pause();
+                    if(showCommandDelay){
+                        System.out.println(player.lastCommandRunTime());
+                    }
                     break;
                 case 3:
                     player.Seek();

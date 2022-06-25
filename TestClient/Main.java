@@ -16,6 +16,8 @@ public class Main {
     static Socket sck;
     static Player player;
 
+    static boolean showLocalCommandDelay = false;
+
     public static void Connect(int port) throws Exception{
         sck = Connector.getReachableSocket(port);
     }
@@ -32,10 +34,16 @@ public class Main {
         if(cmd == 1){
             System.out.println("play");
             player.Play();
+            if(showLocalCommandDelay){
+                System.out.println(player.lastCommandRunTime());
+            }
         }
         if(cmd == 2){
             System.out.println("pause");
             player.Pause();
+            if(showLocalCommandDelay){
+                System.out.println(player.lastCommandRunTime());
+            }
         }
     }
 
@@ -48,6 +56,7 @@ public class Main {
             performDelayCalculation();
             System.out.println("Calibration completed !");
             setPlayer();
+            showLocalCommandDelay = true;
             while(true){
                 listenToCommand();
             }

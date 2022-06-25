@@ -42,7 +42,7 @@ public class Connector {
                 Socket sck = new Socket();
                 SocketAddress addr = new InetSocketAddress(IP, port);
                 // sck.bind(addr);
-                sck.connect(addr,100);
+                sck.connect(addr,200);
                 System.out.println("Server Reached : "+IP);
                 return sck;
             } catch (IOException e) {
