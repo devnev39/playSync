@@ -16,17 +16,13 @@ public class Main{
     static boolean beamConnection = false;
     static boolean showCommandDelay = false;
     public static void main(String[] args) throws Exception {
-        // // StartServer(8888);
-        showCommandDelay = true;
+        startServer(8888);
+        CDC.setAveragingConstant(10);
+        CDC.CalculateDelayServer(acc);
+        System.out.println("Play Delay : "+CDC.playDelay());
+        System.out.println("Pause Delay : "+CDC.pauseDelay());
+        beamConnection = true;
         displayPlayer();
-        // startServer(8888);
-        // // startAccept();
-        // CDC.setAveragingConstant(10);
-        // CDC.CalculateDelayServer(acc);
-        // System.out.println("Play Delay : "+CDC.playDelay());
-        // System.out.println("Pause Delay : "+CDC.pauseDelay());
-        // beamConnection = true;
-        // displayPlayer();
     }
 
     public static void displayPlayer() throws Exception{
