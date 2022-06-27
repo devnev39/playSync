@@ -44,14 +44,15 @@ public class CDC {
         for(int i=0;i<avgConstant;i++){
             sck.getOutputStream().write(Converter.IntToBytes(1));
             player.Play();
+            long ts = player.lastCommandRunTime();
             long t1 = System.currentTimeMillis();
             byte[] data = new byte[Long.BYTES];
             sck.getInputStream().read(data,0,data.length);
             long t2 = System.currentTimeMillis();
             player.Pause();
-            // long d_sck_t = Converter.BytesToLong(data);
+            long tc = Converter.BytesToLong(data);
             System.out.println(t2-t1);
-            avgBuff[i] = t2 - t1;
+            avgBuff[i] = (tc + ((t2-t1)/2)) - ts;
             player.Quit();
         }
         CDC.playDelay = Converter.getAverage(avgBuff);
@@ -62,13 +63,10 @@ public class CDC {
         for(int i=0;i<avgConstant;i++){
             byte[] data = new byte[Integer.BYTES];
             sck.getInputStream().read(data,0,data.length);
-            long t1 = System.currentTimeMillis();
-            // String cmd = new String(data);
             player.Play();
-            long t2 = System.currentTimeMillis();
-            sck.getOutputStream().write(Converter.LongToBytes(t2-t1));
+            sck.getOutputStream().write(Converter.LongToBytes(player.lastCommandRunTime()));
             player.Pause();
-            System.out.println(t2-t1);
+            System.out.println(player.lastCommandRunTime());
         }
     }
 
@@ -84,7 +82,7 @@ public class CDC {
             byte[] data = new byte[Long.BYTES];
             sck.getInputStream().read(data,0,data.length);
             long t2 = System.currentTimeMillis();
-            avgBuff[i] = t2-t1;
+            avgBuff[i] = (Converter.BytesToLong(data) + ((t2-t1)/2)) - player.lastCommandRunTime();
             System.out.println(t2-t1);
         }
         CDC.pauseDelay = Converter.getAverage(avgBuff);
@@ -97,11 +95,9 @@ public class CDC {
             sck.getInputStream().read(data,0,data.length);
             player.Play();
             sck.getInputStream().read(data,0,data.length);
-            long t1 = System.currentTimeMillis();
             player.Pause();
-            long t2 = System.currentTimeMillis();
-            sck.getOutputStream().write(Converter.LongToBytes(t2-t1));
-            System.out.println(t2-t1);
+            sck.getOutputStream().write(Converter.LongToBytes(player.lastCommandRunTime()));
+            System.out.println(player.lastCommandRunTime());
         }
     }
 
@@ -111,5 +107,9 @@ public class CDC {
 
     public static int pauseDelay(){
         return pauseDelay;
+    }
+
+    public static boolean isCalculated(){
+        return isCalculated;
     }
 }
